@@ -54,6 +54,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\HistoricalQuote.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Helpers\YahooStockEngine.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

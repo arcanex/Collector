@@ -60,10 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CardStock\YahooStockFeed.csproj">
-      <Project>{c67579a0-f0ce-48c7-b758-86e2ed89a472}</Project>
-      <Name>YahooStockFeed</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DatabaseSeeder\DatabaseSeeder.csproj">
       <Project>{ff545cab-87d3-42dc-ad9f-e0cb7a191da5}</Project>
       <Name>DatabaseSeeder</Name>
@@ -71,6 +67,10 @@
     <ProjectReference Include="..\Utility\Utility.csproj">
       <Project>{37b38504-ca85-415f-bf72-d4452ec65ad0}</Project>
       <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YahooStcokFeed\YahooStockFeed.csproj">
+      <Project>{c67579a0-f0ce-48c7-b758-86e2ed89a472}</Project>
+      <Name>YahooStockFeed</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

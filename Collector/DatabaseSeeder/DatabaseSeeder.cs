@@ -317,5 +317,10 @@ namespace DatabaseSeeder
                 dr[index] = DBNull.Value;
             }
         }
+
+	    public static void CreateInsertObject(HistoricalQuote historicalQuote)
+	    {
+		    throw new NotImplementedException();
+	    }
     }
 }

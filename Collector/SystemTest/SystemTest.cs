@@ -18,10 +18,26 @@ namespace SystemTest
                 Quotes = new ObservableCollection<Quote>
                 {
                     new Quote("AAPL"),
+					new Quote("GD"),
                 },
             };
             f.GetQuotes();
-            DatabaseSeeder.DatabaseSeeder.CreateInsertObject(f.Quotes.First());
+	        foreach (Quote q in f.Quotes)
+	        {
+		          DatabaseSeeder.DatabaseSeeder.CreateInsertObject(q);
+	        }
         }
+
+		[Test]
+		public void CanInsertHistoricalQuote()
+		{
+			var f = new ViewModel();
+			
+			f.GetHistoricalQuotes("GD");
+			foreach (HistoricalQuote q in f.HistoricalQuotes)
+			{
+				DatabaseSeeder.DatabaseSeeder.CreateInsertObject(q);
+			}
+		}
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using Utility;
 using YahooStockFeed.Models;
@@ -12,6 +13,9 @@ namespace YahooStockFeed.Helpers
         private const string BaseUrl =
             "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20({0})&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
+		private const string HistoricalBaseUrl =
+			"http://query.yahooapis.com/v1/public/yql?q=Select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22{0}%22%20and%20startDate%20%3D%20%222009-09-11%22%20and%20endDate%20%3D%20%222010-03-10%22&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+
         public static void Fetch(ObservableCollection<Quote> quotes)
         {
             string symbolList = String.Join("%2C", quotes.Select(w => "%22" + w.Symbol + "%22").ToArray());
@@ -21,8 +25,42 @@ namespace YahooStockFeed.Helpers
             Parse(quotes, doc);
         }
 
+	    public static void FetchHistorical(ObservableCollection<HistoricalQuote> quotes, string ticker)
+	    {
+		    string url = string.Format(HistoricalBaseUrl, ticker);
 
-        private static void Parse(ObservableCollection<Quote> quotes, XDocument doc)
+			    XDocument doc = XDocument.Load(url);
+			    ParseHistorical(quotes, doc);
+		    
+	    }
+
+	    private static void ParseHistorical(ObservableCollection<HistoricalQuote> quotes, XDocument doc)
+	    {
+		    if (doc.Root != null)
+		    {
+			    XElement results = doc.Root.Element("results");
+
+				foreach (XElement node in results.Elements("quote"))
+				{
+			    var hq = new HistoricalQuote
+			    {
+					Symbol = node.Attribute("Symbol").Value,
+					Date = GetDateTime(node.Element("Date").Value),
+					Open = GetDecimal(node.Element("Open").Value),
+					High = GetDecimal(node.Element("High").Value),
+					Low = GetDecimal(node.Element("Low").Value),
+					Close = GetDecimal(node.Element("Close").Value),
+					Volume = GetDecimal(node.Element("Volume").Value),
+					AdjClose = GetDecimal(node.Element("Adj_Close").Value),
+			    };
+			    quotes.Add(hq);
+
+			    new Logger().Log(hq);
+		    }
+	    }
+	    }
+
+	    private static void Parse(ObservableCollection<Quote> quotes, XDocument doc)
         {
             if (doc.Root != null)
             {

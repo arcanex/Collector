@@ -54,8 +54,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CardStock\YahooStockFeed.csproj">
-      <Project>{C67579A0-F0CE-48C7-B758-86E2ED89A472}</Project>
+    <ProjectReference Include="..\YahooStcokFeed\YahooStockFeed.csproj">
+      <Project>{c67579a0-f0ce-48c7-b758-86e2ed89a472}</Project>
       <Name>YahooStockFeed</Name>
     </ProjectReference>
   </ItemGroup>

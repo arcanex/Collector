@@ -10,7 +10,7 @@ namespace YahooStockFeedTest
     public class YahooStockFeedTest
     {
         [Test]
-        public void CanCollect()
+        public void CanCollectQuotes()
         {
             var f = new ViewModel
             {
@@ -29,5 +29,13 @@ namespace YahooStockFeedTest
             };
             f.GetQuotes();
         }
+
+		[Test]
+		public void CanCollectHistoricalQuotes()
+		{
+			var f = new ViewModel();
+			f.GetHistoricalQuotes("GD");
+		}
+
     }
 }
